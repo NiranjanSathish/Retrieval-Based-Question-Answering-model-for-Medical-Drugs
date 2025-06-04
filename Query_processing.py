@@ -12,6 +12,24 @@ This module handles:
 import spacy
 import re
 from typing import List, Tuple
+import subprocess
+import importlib.util
+
+def ensure_scispacy_model():
+    model_name = "en_core_sci_sm"
+    try:
+        spacy.load(model_name)
+    except OSError:
+        subprocess.run([
+            "pip", "install",
+            "https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.2.0/en_core_sci_sm-0.2.0.tar.gz"
+        ])
+        spacy.load(model_name)
+
+# Call this before any NER processing
+ensure_scispacy_model()
+
+
 
 # Load pre-trained SciSpaCy model for biomedical NER
 ner_model = spacy.load("en_core_sci_md")
