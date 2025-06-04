@@ -1,0 +1,19 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# ML artifacts
+*.pkl
+*.npy
+*.idx
+*.h5
+
+# Secrets and config
+.env
+.streamlit/
+
+# Jupyter/IDE files
+*.ipynb
+.vscode/
+.idea/
+.DS_Store
