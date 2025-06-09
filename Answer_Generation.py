@@ -16,11 +16,16 @@ import streamlit as st
 # Groq API Client Setup
 # -------------------------------
 
+try:
+    client = OpenAI(
+        api_key=st.secrets["groq_api_key"],
+        base_url="https://api.groq.com/openai/v1"
+    )
 
-client = OpenAI(
-    api_key=st.secrets["groq_api_key"],
-    base_url="https://api.groq.com/openai/v1"
-)
+    print("✅ Groq client initialized")
+except Exception as e:
+    print(f"❌ Failed to initialize Groq client: {e}")
+    raise
 
 
 # -------------------------------

@@ -29,10 +29,21 @@ def ensure_scispacy_model():
 # Call this before any NER processing
 ensure_scispacy_model()
 
+import spacy
+import subprocess
+
+def load_spacy_model():
+    try:
+        return spacy.load("en_core_sci_sm")
+    except OSError:
+        subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"], check=True)
+        return spacy.load("en_core_web_sm")
+
+ner_model = load_spacy_model()
 
 
-# Load pre-trained SciSpaCy model for biomedical NER
-ner_model = spacy.load("en_core_sci_md")
+# # Load pre-trained SciSpaCy model for biomedical NER
+# ner_model = spacy.load("en_core_sci_md")
 
 # -------------------------------
 # Rule-Based Intent Classification

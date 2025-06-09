@@ -84,10 +84,29 @@ from Query_processing import preprocess_query
 from Retrieval import Retrieval_averagedQP
 from Answer_Generation import answer_generation
 
+
+st.set_page_config(page_title="Drug QA Assistant")
+
+st.write("Streamlit app started")
+
+try:
+    from Query_processing import preprocess_query
+    st.write(" Query module loaded")
+
+    from Retrieval import Retrieval_averagedQP
+    st.write("Retrieval module loaded")
+
+    from Answer_Generation import answer_generation
+    st.write("Answer module loaded")
+except Exception as e:
+    st.error(f" App failed during import: {e}")
+    raise e
+
+
 # -------------------------------
 # App Config and Initialization
 # -------------------------------
-st.set_page_config(page_title="💊 Drug QA Chatbot", layout="wide")
+st.set_page_config(page_title=" Drug QA Chatbot", layout="wide")
 st.title("💬 Drug QA Chatbot")
 st.caption("Ask any drug-related question and get reliable answers.")
 
@@ -103,7 +122,7 @@ for turn in st.session_state.chat_history:
         st.markdown(turn["query"])
     with st.chat_message("assistant"):
         st.markdown(f"**{turn['answer']}**")
-    with st.expander("📄 Retrieved Context Chunks"):
+    with st.expander(" Retrieved Context Chunks"):
         for i, row in turn["chunks"].iterrows():
             st.markdown(f"""
             **{row['drug_name']} | {row['section']} > {row['subsection']}**  
